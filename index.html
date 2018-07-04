@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title>Tinder For Cats - Home Page</title>
+
+    <style>
+      body {
+        margin: 0;
+      }
+
+      .header {
+        background: blanchedalmond;
+        padding: 5px;
+      }
+
+      .header h1 {
+        margin: 0;
+        font-family: 'Comic Sans MS';
+        font-size: 18px;
+      }
+      
+      .content {
+        padding: 5px;
+        text-align: center;
+      }
+
+      .cat {
+        max-width: 450px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">      
+      <h1>Homepage</h1>
+    </div>
+
+    <div class="content">
+      <h2>Welcome</h2>
+      <p class="intro" id="blue">
+        Welcome to the <strong>Tinder For Cats</strong>! We show you random pictures or gifs of cute cats, and you can choose to like em or <em>hate em</em>.
+      </p>
+
+      <p class="intro">If you don't like what you see you can contact us <a href="contact.html">here</a>.</p>
+
+      <div>
+        <button>Hate It</button>
+        <button onClick="loveIt()">Love It</button>
+      </div>
+
+      <img class="cat" id="cat" />
+      <p id="loading">Loading picture...</p>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script>
+      function loveIt() {
+        $.get("http://thecatapi.com/api/images/favourite?api_key=<API_KEY_HERE  >&image_id=" + $("img#cat").attr("image-id"), function (response) {
+
+        })
+      }
+
+      $.get("http://thecatapi.com/api/images/get?format=xml", function(response) {
+        var imageUrl = $(response).find("url").text(); // gives the url of an image
+        var imageId = $(response).find("id").text();
+        $("img#cat").attr("src", imageUrl);
+        $("img#cat").attr("image-id", imageId);
+        $("p#loading").hide();
+      });
+    </script>
+  </body>
+</html>
